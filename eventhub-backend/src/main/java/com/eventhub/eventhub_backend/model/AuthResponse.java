@@ -9,6 +9,10 @@ import lombok.AllArgsConstructor;
 public class AuthResponse {
     private String token;
     private UserDto user;
+
+    public AuthResponse(String token, UserDto dto) {
+    }
+
     public String getToken() {
         return token;
     }
