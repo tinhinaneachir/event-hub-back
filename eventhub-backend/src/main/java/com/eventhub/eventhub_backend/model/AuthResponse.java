@@ -2,9 +2,6 @@ package com.eventhub.eventhub_backend.model;
 
 
 import com.eventhub.eventhub_backend.dto.UserDto;
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 
 public class AuthResponse {
     private String token;

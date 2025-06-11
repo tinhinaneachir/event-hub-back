@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 
 public class Event {

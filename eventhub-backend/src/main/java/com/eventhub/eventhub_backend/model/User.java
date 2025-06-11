@@ -10,8 +10,6 @@ import java.util.Set;
 
 @Entity
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Table(name = "users")
 public class User {
@@ -33,6 +31,14 @@ public class User {
     @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Reservation> reservation;
 
+
+    public Set<Reservation> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Set<Reservation> reservation) {
+        this.reservation = reservation;
+    }
 
     public Long getId() {
         return id;
@@ -80,14 +86,6 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Set<Reservation> getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Set<Reservation> reservation) {
-        this.reservation = reservation;
     }
 
 }

@@ -4,22 +4,25 @@ package com.eventhub.eventhub_backend.security;
 import com.eventhub.eventhub_backend.service.CustomUserDetailsService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Component
+@Service
 public class JwtFilter extends GenericFilter {
 
-    private final UserDetails userDetails;
 
-    private final JwtService jwtService;
+    private UserDetails userDetails;
+    private  JwtService jwtService;
+    private  CustomUserDetailsService customUserDetailsService;
 
-    private final CustomUserDetailsService customUserDetailsService;
 
+    public JwtFilter(){}
 
     public JwtFilter(UserDetails userDetails, JwtService jwtService, CustomUserDetailsService customUserDetailsService) {
         this.userDetails = userDetails;

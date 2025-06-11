@@ -7,20 +7,23 @@ import com.eventhub.eventhub_backend.model.Role;
 import com.eventhub.eventhub_backend.model.User;
 import com.eventhub.eventhub_backend.repository.UserRepository;
 import com.eventhub.eventhub_backend.security.JwtService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    @Autowired
     private final AuthenticationManager authenticationManager;
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
     private final JwtService jwtService;
 
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
@@ -51,7 +54,7 @@ public class AuthController {
         );
 
         User user = userRepository.findByEmail(authRequest.getEmail())
-                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé");
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
                 String token = jwtService.generateToken(user);
                 return  new AuthResponse(token, toDto(user));
