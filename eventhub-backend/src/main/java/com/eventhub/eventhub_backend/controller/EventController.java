@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/events")
 public class EventController {
 
     private final EventRespository eventRespository;
@@ -44,6 +45,7 @@ public class EventController {
         }).orElseGet(()-> ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
     public ResponseEntity<Event> deleteEvent(@PathVariable Long id){
         if(eventRespository.existsById(id)){
             eventRespository.deleteById(id);

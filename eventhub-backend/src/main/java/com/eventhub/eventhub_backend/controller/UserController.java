@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id, Principal principal){
         if(userRepository.existsById(id)){
             userRepository.deleteById(id);
