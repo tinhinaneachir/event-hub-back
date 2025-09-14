@@ -39,3 +39,8 @@ Cette application a été développée dans le cadre de projets professionnels e
 cd TrainingManagment/backend
 mvn clean install
 mvn spring-boot:run
+
+cd TrainingManagment/frontend
+npm install
+ng serve
+
