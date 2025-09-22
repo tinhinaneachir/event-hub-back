@@ -1,9 +1,7 @@
 package com.eventhub.eventhub_backend.controller;
 
-
 import com.eventhub.eventhub_backend.model.Event;
 import com.eventhub.eventhub_backend.repository.EventRespository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +10,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/events")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EventController {
 
     private final EventRespository eventRespository;
+
+    public EventController(EventRespository eventRespository) {
+        this.eventRespository = eventRespository;
+    }
 
     @GetMapping
     public List<Event> getAllEvents(){
@@ -23,8 +26,9 @@ public class EventController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id){
-        Optional<Event> event = eventRespository.findById(id);
-        return event.map(ResponseEntity :: ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return  eventRespository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -35,7 +39,7 @@ public class EventController {
     @PutMapping("/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updateEvent ){
         return eventRespository.findById(id).map(event -> {
-            event.setId(updateEvent.getId());
+            event.setTitle(updateEvent.getTitle());
             event.setDescription(updateEvent.getDescription());
             event.setLocation(updateEvent.getLocation());
             event.setReservation(updateEvent.getReservation());
@@ -54,10 +58,4 @@ public class EventController {
         return ResponseEntity.notFound().build();
     }
 
-
-
-
-    public EventController(EventRespository eventRespository) {
-        this.eventRespository = eventRespository;
-    }
 }
